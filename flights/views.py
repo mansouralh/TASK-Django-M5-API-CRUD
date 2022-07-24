@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, UpdateAPIView,DestroyAPIView
 
 from .models import Booking, Flight
-from .serializers import BookingListSerializer, FlightListSerializer
+from .serializers import BookingListSerializer, DetailSerializer,UpdateSerializer, FlightListSerializer
 
 
 class FlightListView(ListAPIView):
@@ -14,3 +14,22 @@ class FlightListView(ListAPIView):
 class BookingListView(ListAPIView):
     queryset = Booking.objects.filter(date__gte=datetime.today())
     serializer_class = BookingListSerializer
+    
+class BookingAPIView(UpdateAPIView):
+    queryset = Booking.objects.all()
+    serializer_class= DetailSerializer
+    lookup_field="id"
+    lookup_url_kwarg="booking_id"
+    
+    
+class BookingUpdateAPIView(RetrieveAPIView):
+    queryset = Booking.objects.all()
+    serializer_class= UpdateSerializer
+    lookup_field="id"
+    lookup_url_kwarg="booking_id"
+    
+class BookingDeleteAPIView(DestroyAPIView):
+    queryset = Booking.objects.all()
+    
+    lookup_field="id"
+    lookup_url_kwarg="booking_id"
