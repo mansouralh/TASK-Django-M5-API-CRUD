@@ -15,14 +15,14 @@ class BookingListView(ListAPIView):
     queryset = Booking.objects.filter(date__gte=datetime.today())
     serializer_class = BookingListSerializer
     
-class BookingAPIView(UpdateAPIView):
+class BookingAPIView(RetrieveAPIView):
     queryset = Booking.objects.all()
     serializer_class= DetailSerializer
     lookup_field="id"
     lookup_url_kwarg="booking_id"
     
     
-class BookingUpdateAPIView(RetrieveAPIView):
+class BookingUpdateAPIView(UpdateAPIView):
     queryset = Booking.objects.all()
     serializer_class= UpdateSerializer
     lookup_field="id"
